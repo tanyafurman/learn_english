@@ -22,7 +22,7 @@ import edu.furman.english.tests.Test2;
 
 public class Application {
 
-	private Vocabulary v;
+	private Vocabulary vocabulary;
 
 	private User user;
 
@@ -42,7 +42,7 @@ public class Application {
 
 	public Application(User u, Vocabulary v) {
 		this.user = u;
-		this.v = v;
+		this.vocabulary = v;
 		this.userWordService = new UserWordService(u, v);
 		this.user.addListener(userWordService);
 		new Thread(userWordService).start();
@@ -105,7 +105,7 @@ public class Application {
 			UserManager.getInstance().saveUser(user);
 			user = null;
 		}
-		v = null;
+		vocabulary = null;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -131,7 +131,7 @@ public class Application {
 			result = unknownWordsModel;
 		} else if (VocabularyModel.class == clazz) {
 			if (vocabularyModel == null) {
-				vocabularyModel = new VocabularyModel(v);
+				vocabularyModel = new VocabularyModel(vocabulary);
 			}
 			result = vocabularyModel;
 		}
