@@ -1,0 +1,11 @@
+конь=horse
+нравиться=like
+водить=drive
+машина=car
+снег=snow
+пиво=beer
+свинка=pig
+яблоко=apple
+ручка=pen
+ананас=pineapple
+ручкаананасяблокоручка=penpineappleapplepen
