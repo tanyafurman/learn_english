@@ -1,4 +1,4 @@
-package edu.furman.english;
+package edu.english;
 
 import java.util.ArrayList;
 import java.util.List;

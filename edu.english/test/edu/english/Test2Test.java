@@ -1,4 +1,4 @@
-package edu.furman.english;
+package edu.english;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import edu.english.data.Vocabulary;
 import edu.english.data.Word;
 import edu.english.data.Status.StatusType;
 
-public class Test1Test extends TestTest {
+public class Test2Test extends TestTest {
 
 	public void testCollectAnswers() {
 		Vocabulary v = new Vocabulary();
@@ -38,15 +38,16 @@ public class Test1Test extends TestTest {
 	public static void checkAnswers(Vocabulary v) {
 		Application a = new Application(createTestUser(v), v);
 		a.getNextTest();
+		a.getNextTest();
 		TestAdapter t = a.getNextTest();
 
-		String testWord = t.getWords().get(0);
+		String answer = t.getAnswers().get(0);
 
 		//check result
 		@SuppressWarnings("serial")
 		List<Word> expectedResult = new ArrayList<Word>() {
 			{
-				add(new Word(testWord, v.getWords().stream().filter(w->w.getWord().equals(testWord)).findFirst().get().getTranslate()));
+				add(new Word(v.getWords().stream().filter(w->w.getTranslate().equals(answer)).findFirst().get().getWord(), answer));
 			}
 		};
 

@@ -1,4 +1,4 @@
-package edu.furman.english;
+package edu.english;
 
 import edu.english.data.User;
 import edu.english.data.Vocabulary;
