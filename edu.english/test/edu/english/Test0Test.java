@@ -8,7 +8,7 @@ import edu.english.data.Status;
 import edu.english.data.TestAdapter;
 import edu.english.data.User;
 import edu.english.data.Vocabulary;
-import edu.english.data.Word;
+import edu.english.data.Word2Translate;
 import edu.english.data.Status.StatusType;
 import junit.framework.TestCase;
 
@@ -16,22 +16,22 @@ public class Test0Test extends TestCase {
 
 	public void testCorrect() {
 		Vocabulary v = new Vocabulary();
-		List<Word> words = new ArrayList<>();
-		words.add(new Word("A", "AA"));
-		words.add(new Word("B", "BB"));
-		words.add(new Word("C", "ACC"));
-		words.add(new Word("A", "AB"));
+		List<Word2Translate> words = new ArrayList<>();
+		words.add(new Word2Translate("A", "AA"));
+		words.add(new Word2Translate("B", "BB"));
+		words.add(new Word2Translate("C", "ACC"));
+		words.add(new Word2Translate("A", "AB"));
 		v.load(words);
 
 		Application a = new Application(createTestUser(v), v);
 		TestAdapter t = a.getNextTest();
 
 		//check result
-		List<Word> expectedResult = new ArrayList<>(4);
-		expectedResult.add(new Word("A", "AA"));
-		expectedResult.add(new Word("B", "BB"));
-		expectedResult.add(new Word("C", "ACC"));
-		expectedResult.add(new Word("A", "AB"));
+		List<Word2Translate> expectedResult = new ArrayList<>(4);
+		expectedResult.add(new Word2Translate("A", "AA"));
+		expectedResult.add(new Word2Translate("B", "BB"));
+		expectedResult.add(new Word2Translate("C", "ACC"));
+		expectedResult.add(new Word2Translate("A", "AB"));
 
 		for (Status s: a.processTestResults(expectedResult)) {
 			assertEquals(StatusType.OK, s.getType());
@@ -51,7 +51,7 @@ public class Test0Test extends TestCase {
 
 	private User createTestUser(Vocabulary v) {
 		User user = new User("", "", "login", "");
-		for (Word word: v.getWords()) {
+		for (Word2Translate word: v.getWords()) {
 			user.addWord(word, 0);
 		}
 		return user;

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Vocabulary {
 
-	private List<Word> words;
+	private List<Word2Translate> words;
 
 	private boolean loaded = false;
 
@@ -23,7 +23,7 @@ public class Vocabulary {
 	 * load from default file
 	 */
 	public void load() {
-		List<Word> words = new ArrayList<>();
+		List<Word2Translate> words = new ArrayList<>();
 		URL url = getClass().getResource("vocabulary.txt");
 		InputStreamReader reader;
 		try {
@@ -37,7 +37,7 @@ public class Vocabulary {
 				}
 				String word = splitted[0];
 				String translation = splitted[1];
-				words.add(new Word(word, translation));
+				words.add(new Word2Translate(word, translation));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -46,11 +46,11 @@ public class Vocabulary {
 		load(words);
 	}
 
-	public void load(List<Word> words) {
+	public void load(List<Word2Translate> words) {
 		this.words.addAll(words);
-		Collections.sort(words, new Comparator<Word>(){
+		Collections.sort(words, new Comparator<Word2Translate>(){
 			@Override
-			public int compare(Word o1, Word o2) {
+			public int compare(Word2Translate o1, Word2Translate o2) {
 				return o1.getWord().compareTo(o2.getWord());
 			}
 		});
@@ -62,11 +62,11 @@ public class Vocabulary {
 		return loaded;
 	}
 
-	public Vocabulary(List<Word> words) {
+	public Vocabulary(List<Word2Translate> words) {
 		this.words = words;
 	}
 
-	public List<Word> getWords() {
+	public List<Word2Translate> getWords() {
 		return words;
 	}
 }

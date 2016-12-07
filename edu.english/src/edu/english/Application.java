@@ -10,7 +10,7 @@ import edu.english.data.TestAdapter;
 import edu.english.data.User;
 import edu.english.data.UserDataListener;
 import edu.english.data.Vocabulary;
-import edu.english.data.Word;
+import edu.english.data.Word2Translate;
 import edu.english.model.KnownWordsModel;
 import edu.english.model.StatusModel;
 import edu.english.model.UnknownWordsModel;
@@ -48,7 +48,7 @@ public class Application {
 		new Thread(userWordService).start();
 	}
 
-	public List<Status> processTestResults(List<Word> words) {
+	public List<Status> processTestResults(List<Word2Translate> words) {
 		List<Status> result = currentTest.checkAnswers(words);
 		user.addStatus(result);
 		return result;
@@ -72,7 +72,7 @@ public class Application {
 		user.setWordsRate(repeatCount);
 	}
 
-	public void addUnknownWord(Word word) {
+	public void addUnknownWord(Word2Translate word) {
 		user.addWord(word, 0);
 	}
 
@@ -164,7 +164,7 @@ public class Application {
 		}
 
 		private boolean addNewWord() {
-			for (Word word : v.getWords()) {
+			for (Word2Translate word : v.getWords()) {
 				if (!user.containsUnknowns(word) && !user.containsKnowns(word)) {
 					user.addWord(word, 0);
 					return true;

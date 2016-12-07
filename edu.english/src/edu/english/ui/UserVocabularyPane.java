@@ -10,7 +10,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 
 import edu.english.Application;
-import edu.english.data.Word;
+import edu.english.data.Word2Translate;
 import edu.english.model.AbstractWordsModel;
 import edu.english.model.KnownWordsModel;
 import edu.english.model.UnknownWordsModel;
@@ -53,7 +53,7 @@ public class UserVocabularyPane extends JPanel {
 				if (rows == null) return;
 				
 				for (int row: rows) {
-					Word word = new Word((String)table.getModel().getValueAt(row, 0), (String)table.getModel().getValueAt(row, 1));
+					Word2Translate word = new Word2Translate((String)table.getModel().getValueAt(row, 0), (String)table.getModel().getValueAt(row, 1));
 					app.addUnknownWord(word);
 				}
 			}

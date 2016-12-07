@@ -4,13 +4,13 @@ import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
-import edu.english.data.Word;
+import edu.english.data.Word2Translate;
 
 public abstract class AbstractWordsModel extends DefaultTableModel {
 
 	private static final long serialVersionUID = 1L;
 
-	protected abstract List<Word> getWords();
+	protected abstract List<Word2Translate> getWords();
 
 	@Override
 	public int getRowCount() {
@@ -24,7 +24,7 @@ public abstract class AbstractWordsModel extends DefaultTableModel {
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		Word word = getWords().get(rowIndex);
+		Word2Translate word = getWords().get(rowIndex);
 		switch (columnIndex) {
 		case 0:
 			return word.getWord();

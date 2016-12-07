@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import edu.english.data.UserDataListener;
-import edu.english.data.Word;
+import edu.english.data.Word2Translate;
 
 public class KnownWordsModel extends WordsModel implements UserDataListener {
 
@@ -15,7 +15,7 @@ public class KnownWordsModel extends WordsModel implements UserDataListener {
 	@Override
 	public void notify(Type type, Object element) {
 		if (Type.KNOWN_WORDS_CHANGED == type) {
-			ArrayList<Word> words = new ArrayList<>((Collection<Word>)element);
+			ArrayList<Word2Translate> words = new ArrayList<>((Collection<Word2Translate>)element);
 			Collections.sort(words);
 			this.setNewWordMap(words);
 		}

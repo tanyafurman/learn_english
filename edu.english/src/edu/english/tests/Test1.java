@@ -4,13 +4,13 @@ import java.util.Collections;
 import java.util.List;
 
 import edu.english.data.User;
-import edu.english.data.Word;
+import edu.english.data.Word2Translate;
 
 public class Test1 extends Test {
 
-	private List<Word> words;
+	private List<Word2Translate> words;
 
-	private List<Word> answers;
+	private List<Word2Translate> answers;
 
 	private User user;
 
@@ -19,7 +19,7 @@ public class Test1 extends Test {
 	}
 
 	@Override
-	public List<Word> getTestAnswers() {
+	public List<Word2Translate> getTestAnswers() {
 		if (answers == null) {
 			answers = collectTestWords(user.getUnknownWords(), TEST_SIZE);
 		}
@@ -27,16 +27,18 @@ public class Test1 extends Test {
 	}
 
 	@Override
-	protected List<Word> getTestWords() {
+	protected List<Word2Translate> getTestWords() {
 		if (words == null) {
-			List<Word> answers = getTestAnswers();
-			words = answers.size() == 0 ? Collections.emptyList(): shuffle(answers).subList(0, 1);
+			List<Word2Translate> answers = getTestAnswers();
+			words = answers.size() == 0 
+					? Collections.emptyList()
+					: shuffle(answers).subList(0, 1);
 		}
 		return words;
 	}
 	
 	@Override
-	protected List<Word> getCorrectAnswer() {
+	protected List<Word2Translate> getCorrectAnswer() {
 		return getTestWords();
 	}
 }

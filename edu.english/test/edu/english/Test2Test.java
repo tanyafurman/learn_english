@@ -7,17 +7,17 @@ import edu.english.Application;
 import edu.english.data.Status;
 import edu.english.data.TestAdapter;
 import edu.english.data.Vocabulary;
-import edu.english.data.Word;
+import edu.english.data.Word2Translate;
 import edu.english.data.Status.StatusType;
 
 public class Test2Test extends TestTest {
 
 	public void testCollectAnswers() {
 		Vocabulary v = new Vocabulary();
-		List<Word> words = new ArrayList<>();
-		words.add(new Word("A", "AA"));
-		words.add(new Word("B", "BB"));
-		words.add(new Word("C", "ACC"));
+		List<Word2Translate> words = new ArrayList<>();
+		words.add(new Word2Translate("A", "AA"));
+		words.add(new Word2Translate("B", "BB"));
+		words.add(new Word2Translate("C", "ACC"));
 		v.load(words);
 
 		//random
@@ -29,7 +29,7 @@ public class Test2Test extends TestTest {
 
 		v = new Vocabulary();
 		words = new ArrayList<>();
-		words.add(new Word("A", "AA"));
+		words.add(new Word2Translate("A", "AA"));
 		v.load(words);
 
 		checkAnswers(v);
@@ -45,9 +45,9 @@ public class Test2Test extends TestTest {
 
 		//check result
 		@SuppressWarnings("serial")
-		List<Word> expectedResult = new ArrayList<Word>() {
+		List<Word2Translate> expectedResult = new ArrayList<Word2Translate>() {
 			{
-				add(new Word(v.getWords().stream().filter(w->w.getTranslate().equals(answer)).findFirst().get().getWord(), answer));
+				add(new Word2Translate(v.getWords().stream().filter(w->w.getTranslate().equals(answer)).findFirst().get().getWord(), answer));
 			}
 		};
 

@@ -6,7 +6,7 @@ import java.util.List;
 import javax.swing.event.TableModelEvent;
 
 import edu.english.data.Vocabulary;
-import edu.english.data.Word;
+import edu.english.data.Word2Translate;
 
 public class VocabularyModel extends AbstractWordsModel {
 
@@ -20,7 +20,7 @@ public class VocabularyModel extends AbstractWordsModel {
 	}
 
 	@Override
-	protected List<Word> getWords() {
+	protected List<Word2Translate> getWords() {
 		return v == null ? Collections.emptyList() : v.getWords();
 	}
 }

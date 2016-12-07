@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 
 import edu.english.data.Status;
 import edu.english.data.TestAdapter;
-import edu.english.data.Word;
+import edu.english.data.Word2Translate;
 import edu.english.data.Status.StatusType;
 import edu.english.resources.IconProvier;
 
@@ -58,8 +58,8 @@ public class TestUI extends JPanel {
 		return panel;
 	}
 
-	public List<Word> getAnswerStatus() {
-		return answersMap.entrySet().stream().map(e -> new Word(e.getKey().getText(), e.getValue().getText())).collect(Collectors.toList());
+	public List<Word2Translate> getAnswerStatus() {
+		return answersMap.entrySet().stream().map(e -> new Word2Translate(e.getKey().getText(), e.getValue().getText())).collect(Collectors.toList());
 	}
 
 	public void setResult(List<Status> statuses) {

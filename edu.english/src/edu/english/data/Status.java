@@ -6,9 +6,9 @@ public class Status {
 
 	private final String message;
 
-	private final Word uw;
+	private final Word2Translate uw;
 
-	public Status(String message, Word uw, StatusType type) {
+	public Status(String message, Word2Translate uw, StatusType type) {
 		this.message = message;
 		this.type = type;
 		this.uw = uw;
@@ -22,7 +22,7 @@ public class Status {
 		return type;
 	}
 
-	public Word getUw() {
+	public Word2Translate getUw() {
 		return uw;
 	}
 

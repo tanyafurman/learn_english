@@ -2,12 +2,12 @@ package edu.english.data;
 
 import java.io.Serializable;
 
-public class Word implements Comparable<Word>, Serializable {
+public class Word2Translate implements Comparable<Word2Translate>, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private final String word;
 	private final String translate;
-	public Word(String word, String translate) {
+	public Word2Translate(String word, String translate) {
 		super();
 		this.word = word;
 		this.translate = translate;
@@ -23,8 +23,8 @@ public class Word implements Comparable<Word>, Serializable {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (false == obj instanceof Word) return false;
-		Word comp = (Word) obj;
+		if (false == obj instanceof Word2Translate) return false;
+		Word2Translate comp = (Word2Translate) obj;
 		return word.equals(comp.word) && translate != null & translate.equals(comp.translate);
 	}
 
@@ -34,7 +34,7 @@ public class Word implements Comparable<Word>, Serializable {
 	}
 
 	@Override
-	public int compareTo(Word o) {
+	public int compareTo(Word2Translate o) {
 		return this.word.compareTo(o.getWord());
 	}
 	

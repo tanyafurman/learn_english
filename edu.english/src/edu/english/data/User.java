@@ -26,9 +26,9 @@ public class User implements Serializable {
 
 	private int wordsAmount = 5;
 
-	private List<Word> knownWords = new ArrayList<>();
+	private List<Word2Translate> knownWords = new ArrayList<>();
 
-	private HashMap<Word, Integer> wordToRate = new HashMap<>();
+	private HashMap<Word2Translate, Integer> wordToRate = new HashMap<>();
 
 	private List<UserDataListener> listeners = new ArrayList<>();
 
@@ -62,14 +62,14 @@ public class User implements Serializable {
 		return pass;
 	}
 
-	public Collection<Word> getUnknownWords() {
+	public Collection<Word2Translate> getUnknownWords() {
 		if (wordToRate.isEmpty()) {
 			return Collections.emptyList();
 		}
 		return wordToRate.keySet();
 	}
 
-	public List<Word> getKnownWords() {
+	public List<Word2Translate> getKnownWords() {
 		return knownWords;
 	}
 
@@ -90,7 +90,7 @@ public class User implements Serializable {
 		notify(Type.STATUS_CHANGED);
 	} 
 
-	public void addWord(Word word, int rate) {
+	public void addWord(Word2Translate word, int rate) {
 		wordToRate.put(word, new Integer(rate));
 		notify(Type.UNKNOWN_WORDS_CHANGED);
 		if (knownWords.remove(word)) {
@@ -102,7 +102,7 @@ public class User implements Serializable {
 		return rate;
 	}
 
-	protected void wordsRateUp(Word word) {
+	protected void wordsRateUp(Word2Translate word) {
 		Integer rate = wordToRate.get(word);
 		if (rate == null) {
 			return;
@@ -118,11 +118,11 @@ public class User implements Serializable {
 		}
 	}
 
-	public boolean containsUnknowns(Word word) {
+	public boolean containsUnknowns(Word2Translate word) {
 		return wordToRate.containsKey(word);
 	}
 
-	public boolean containsKnowns(Word word) {
+	public boolean containsKnowns(Word2Translate word) {
 		return knownWords.contains(word);
 	}
 
@@ -138,7 +138,7 @@ public class User implements Serializable {
 
 	public void setWordsRate(int rate) {
 		this.rate = rate;
-		for (Word word: getUnknownWords()) {
+		for (Word2Translate word: getUnknownWords()) {
 			if (wordToRate.get(word).intValue() >= rate) {
 				wordsRateUp(word);
 			}
