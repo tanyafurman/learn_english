@@ -3,7 +3,7 @@ package edu.furman.english;
 import org.junit.Assert;
 import org.junit.Test;
 
-import edu.furman.english.resources.Internalizer;
+import edu.english.resources.Internalizer;
 
 public class InternalizerTest {
 

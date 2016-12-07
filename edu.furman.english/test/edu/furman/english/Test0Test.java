@@ -3,12 +3,13 @@ package edu.furman.english;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.furman.english.data.Status;
-import edu.furman.english.data.Status.StatusType;
-import edu.furman.english.data.TestAdapter;
-import edu.furman.english.data.User;
-import edu.furman.english.data.Vocabulary;
-import edu.furman.english.data.Word;
+import edu.english.Application;
+import edu.english.data.Status;
+import edu.english.data.TestAdapter;
+import edu.english.data.User;
+import edu.english.data.Vocabulary;
+import edu.english.data.Word;
+import edu.english.data.Status.StatusType;
 import junit.framework.TestCase;
 
 public class Test0Test extends TestCase {

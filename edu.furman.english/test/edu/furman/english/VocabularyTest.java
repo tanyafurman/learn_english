@@ -3,7 +3,7 @@ package edu.furman.english;
 import org.junit.Assert;
 import org.junit.Test;
 
-import edu.furman.english.data.Vocabulary;
+import edu.english.data.Vocabulary;
 
 public class VocabularyTest {
 
