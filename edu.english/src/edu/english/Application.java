@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import edu.english.data.Status;
-import edu.english.data.TestAdapter;
 import edu.english.data.User;
 import edu.english.data.UserDataListener;
 import edu.english.data.Vocabulary;
@@ -80,13 +79,13 @@ public class Application {
 		return 3;
 	}
 
-	public TestAdapter getNextTest() {
+	public Test getNextTest() {
 		if (!testIterator.hasNext()) {
 			testIterator = Arrays.asList(new Test0(user),
 				new Test1(user),
 				new Test2(user)).iterator();
 		}
-		return new TestAdapter(currentTest = testIterator.next());
+		return currentTest = testIterator.next();
 	}
 
 	public void dispose() {

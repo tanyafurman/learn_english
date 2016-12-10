@@ -1,5 +1,7 @@
 package edu.english.ui;
 
+import java.awt.Dimension;
+
 import javax.swing.Action;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -13,6 +15,13 @@ import edu.english.ui.actions.LoginAction;
 import edu.english.ui.actions.UpdateUserSettings;
 
 public class ApplicationFrame extends JFrame {
+
+	public static void main(String[] args) {
+		ApplicationFrame frame = new ApplicationFrame();
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setMinimumSize(new Dimension(300, 300));
+		frame.setVisible(true);
+	}
 
 	private static final long serialVersionUID = 1L;
 
