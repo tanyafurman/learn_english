@@ -3,13 +3,12 @@ package edu.english;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.english.Application;
 import edu.english.data.Status;
-import edu.english.data.TestAdapter;
+import edu.english.data.Status.StatusType;
 import edu.english.data.User;
 import edu.english.data.Vocabulary;
 import edu.english.data.Word2Translate;
-import edu.english.data.Status.StatusType;
+import edu.english.tests.Test;
 import junit.framework.TestCase;
 
 public class Test0Test extends TestCase {
@@ -24,7 +23,7 @@ public class Test0Test extends TestCase {
 		v.load(words);
 
 		Application a = new Application(createTestUser(v), v);
-		TestAdapter t = a.getNextTest();
+		Test t = a.getNextTest();
 
 		//check result
 		List<Word2Translate> expectedResult = new ArrayList<>(4);

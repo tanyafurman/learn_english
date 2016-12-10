@@ -3,12 +3,11 @@ package edu.english;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.english.Application;
 import edu.english.data.Status;
-import edu.english.data.TestAdapter;
+import edu.english.data.Status.StatusType;
 import edu.english.data.Vocabulary;
 import edu.english.data.Word2Translate;
-import edu.english.data.Status.StatusType;
+import edu.english.tests.Test;
 
 public class Test1Test extends TestTest {
 
@@ -38,7 +37,7 @@ public class Test1Test extends TestTest {
 	public static void checkAnswers(Vocabulary v) {
 		Application a = new Application(createTestUser(v), v);
 		a.getNextTest();
-		TestAdapter t = a.getNextTest();
+		Test t = a.getNextTest();
 
 		String testWord = t.getWords().get(0);
 

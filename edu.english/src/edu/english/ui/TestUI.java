@@ -15,10 +15,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import edu.english.data.Status;
-import edu.english.data.TestAdapter;
-import edu.english.data.Word2Translate;
 import edu.english.data.Status.StatusType;
+import edu.english.data.Word2Translate;
 import edu.english.resources.IconProvier;
+import edu.english.tests.Test;
 
 public class TestUI extends JPanel {
 
@@ -34,7 +34,7 @@ public class TestUI extends JPanel {
 
 	private JLabel lastWordLabel;
 
-	public TestUI(TestAdapter test) {
+	public TestUI(Test test) {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		JPanel wordsPanel = createHorizontalPanel(test.getWords(), (i)->COLORS[i], (label)->new WordsMousListener(label), words);
 		JPanel answerPanel = createHorizontalPanel(test.getAnswers(), (i)->Color.black, (label)-> new AnswerMouseListener(label), answers);
