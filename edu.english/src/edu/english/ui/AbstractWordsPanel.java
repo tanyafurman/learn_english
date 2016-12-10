@@ -7,8 +7,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
-
-import edu.english.model.AbstractWordsModel;
+import javax.swing.table.DefaultTableModel;
 
 public class AbstractWordsPanel extends JPanel {
 
@@ -16,7 +15,7 @@ public class AbstractWordsPanel extends JPanel {
 
 	private JTable table;
 
-	public <T extends AbstractWordsModel> AbstractWordsPanel(T model, String name) {
+	public AbstractWordsPanel(DefaultTableModel model, String name) {
 		BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
 		setLayout(layout);
 

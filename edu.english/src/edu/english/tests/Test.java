@@ -8,25 +8,25 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import edu.english.data.Status;
-import edu.english.data.Word2Translate;
 import edu.english.data.Status.StatusType;
+import edu.english.data.Word2Translate;
 
 public abstract class Test {
 
 	public static int TEST_SIZE = 5;
 
 	public List<String> getWords(){
-		return getTestWords().size() == 0//условие
+		return getTestWords().size() == 0//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 				? Collections.emptyList()//true
 				: shuffle(getTestWords()).stream().map(w->w.getWord()).collect(Collectors.toList());//else 
-				//сперва мешаем слова потом обращаем в поток после строим map и собираем список в коллекцию
+				//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ map пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	};
 
 	public List<String> getAnswers() {
 		return getTestAnswers().size() == 0 
 				? Collections.emptyList()
 				: shuffle(getTestAnswers()).stream().map(w->w.getTranslate()).collect(Collectors.toList());
-				//сперва мешаем переводы потом обращаем в поток после строим map и собираем список в коллекцию
+				//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ map пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	}
 
 	protected abstract List<Word2Translate> getTestAnswers();
@@ -49,14 +49,14 @@ public abstract class Test {
 		return result;
 	};
 
-	protected static <T> List<T> shuffle(List<T> baseList) { // перемешивает коллекцию
+	protected static <T> List<T> shuffle(List<T> baseList) { // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		long seed = System.nanoTime();
 		ArrayList<T> result = new ArrayList<>(baseList);
 		Collections.shuffle(result, new Random(seed));
 		return result;
 	}
 
-	protected static List<Word2Translate> collectTestWords(Collection<Word2Translate> unknownWords, int length) {// выбирает из данной коллекции несколько слов length
+	protected static List<Word2Translate> collectTestWords(Collection<Word2Translate> unknownWords, int length) {// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ length
 		length = Math.min(length, unknownWords.size());
 		if (length == 0) {
 			return Collections.emptyList();

@@ -16,7 +16,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 
 import edu.english.Application;
-import edu.english.model.StatusModel;
 import edu.english.ui.actions.CreateUserAction;
 import edu.english.ui.actions.LoginAction;
 import edu.english.ui.actions.UpdateUserSettings;
@@ -96,7 +95,7 @@ public class ApplicationFrame extends JFrame {
 			{// create table
 				ScrollPane scrollable = new ScrollPane();
 				statusPanel.add(scrollable);
-				scrollable.add(new JTable(app.getAdapter(StatusModel.class)));
+				scrollable.add(new JTable(app.getAdapter(Application.STATUS_MODEL_ID)));
 			}
 			tabbed.addTab("Status", statusPanel);
 		}

@@ -8,13 +8,10 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import edu.english.Application;
 import edu.english.data.Word2Translate;
-import edu.english.model.AbstractWordsModel;
-import edu.english.model.KnownWordsModel;
-import edu.english.model.UnknownWordsModel;
-import edu.english.model.VocabularyModel;
 
 public class UserVocabularyPane extends JPanel {
 
@@ -26,12 +23,12 @@ public class UserVocabularyPane extends JPanel {
 		this.app = app;
 		setLayout(new GridLayout(0, 3, 5, 5));
 
-		this.add(createKnownWordsPanel(app.getAdapter(KnownWordsModel.class),"Known words"));
-		this.add(new AbstractWordsPanel(app.getAdapter(UnknownWordsModel.class), "Unknown words"));
-		this.add(createKnownWordsPanel(app.getAdapter(VocabularyModel.class), "Vocabulary"));
+		this.add(createKnownWordsPanel(app.getAdapter(Application.KNOWN_WORDS_MODEL_ID),"Known words"));
+		this.add(new AbstractWordsPanel(app.getAdapter(Application.UNKNOWN_WORDS_MODEL_ID), "Unknown words"));
+		this.add(createKnownWordsPanel(app.getAdapter(Application.VOCABULARY_WORDS_MODEL_ID), "Vocabulary"));
 	}
 
-	private AbstractWordsPanel createKnownWordsPanel(AbstractWordsModel model, String name) {
+	private AbstractWordsPanel createKnownWordsPanel(DefaultTableModel model, String name) {
 		AbstractWordsPanel panel = new AbstractWordsPanel(model, name);
 		JTable table = panel.getTable();
 		JPopupMenu popup = createPopup(table);

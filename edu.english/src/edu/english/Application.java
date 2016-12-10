@@ -5,15 +5,16 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.table.DefaultTableModel;
+
 import edu.english.data.Status;
 import edu.english.data.User;
 import edu.english.data.UserDataListener;
+import edu.english.data.UserDataListener.Type;
 import edu.english.data.Vocabulary;
 import edu.english.data.Word2Translate;
-import edu.english.model.KnownWordsModel;
+import edu.english.model.AbstractWordsModel;
 import edu.english.model.StatusModel;
-import edu.english.model.UnknownWordsModel;
-import edu.english.model.VocabularyModel;
 import edu.english.tests.Test;
 import edu.english.tests.Test0;
 import edu.english.tests.Test1;
@@ -21,19 +22,19 @@ import edu.english.tests.Test2;
 
 public class Application {
 
+	public final static String KNOWN_WORDS_MODEL_ID = "KNOWN_WORDS_MODEL_ID";
+
+	public final static String UNKNOWN_WORDS_MODEL_ID = "UNKNOWN_WORDS_MODEL_ID";
+
+	public final static String VOCABULARY_WORDS_MODEL_ID = "VOCABULARY_WORDS_MODEL_ID";
+
+	public final static String STATUS_MODEL_ID = "STATUS_MODEL_ID";
+
 	private Vocabulary vocabulary;
 
 	private User user;
 
 	private UserWordService userWordService;
-
-	private KnownWordsModel knownWordsModel;
-
-	private UnknownWordsModel unknownWordsModel;
-
-	private VocabularyModel vocabularyModel;
-
-	private StatusModel statusModel;
 
 	private Iterator<Test> testIterator = Collections.<Test>emptyList().iterator();
 
@@ -89,17 +90,6 @@ public class Application {
 	}
 
 	public void dispose() {
-		removeUserListener(knownWordsModel);
-		removeUserListener(unknownWordsModel);
-		removeUserListener(userWordService);
-		removeUserListener(statusModel);
-
-		knownWordsModel = null;
-		unknownWordsModel = null;
-		userWordService = null;
-		statusModel = null;
-		vocabularyModel = null;
-
 		if (user != null) {
 			UserManager.getInstance().saveUser(user);
 			user = null;
@@ -107,34 +97,23 @@ public class Application {
 		vocabulary = null;
 	}
 
-	@SuppressWarnings("unchecked")
-	public <T> T getAdapter(Class<T> clazz) {
-		Object result = null;
-		if (KnownWordsModel.class == clazz) {
-			if (knownWordsModel == null) {
-				knownWordsModel = new KnownWordsModel();
-				addUserListener(knownWordsModel);
-			}
-			result = knownWordsModel;
-		} else if (StatusModel.class == clazz) {
-			if (statusModel == null) {
-				statusModel = new StatusModel();
-				addUserListener(statusModel);
-			}
-			result = statusModel;
-		} else if (UnknownWordsModel.class == clazz) {
-			if (unknownWordsModel == null) {
-				unknownWordsModel = new UnknownWordsModel();
-				addUserListener(unknownWordsModel);
-			}
-			result = unknownWordsModel;
-		} else if (VocabularyModel.class == clazz) {
-			if (vocabularyModel == null) {
-				vocabularyModel = new VocabularyModel(vocabulary);
-			}
-			result = vocabularyModel;
+	public DefaultTableModel getAdapter(String id) {
+		DefaultTableModel result = null;
+		switch (id) {
+		case KNOWN_WORDS_MODEL_ID:
+			result = new AbstractWordsModel(Collections.emptyList(), Type.KNOWN_WORDS_CHANGED);
+			break;
+		case UNKNOWN_WORDS_MODEL_ID:
+			result = new AbstractWordsModel(Collections.emptyList(), Type.UNKNOWN_WORDS_CHANGED);
+			break;
+		case VOCABULARY_WORDS_MODEL_ID: 
+			result = new AbstractWordsModel(vocabulary.getWords(), null);
+			break;
+		case STATUS_MODEL_ID:
+			result = new StatusModel();
 		}
-		return (T) result;
+		addUserListener((UserDataListener)result);
+		return result;
 	}
 
 	public void addUserListener(UserDataListener listener) {

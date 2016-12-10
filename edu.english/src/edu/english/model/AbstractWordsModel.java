@@ -1,20 +1,39 @@
 package edu.english.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 
+import edu.english.data.UserDataListener;
 import edu.english.data.Word2Translate;
 
-public abstract class AbstractWordsModel extends DefaultTableModel {
+public class AbstractWordsModel extends DefaultTableModel implements UserDataListener {
 
-	private static final long serialVersionUID = 1L;
+	private List<Word2Translate> words;
 
-	protected abstract List<Word2Translate> getWords();
+	private Type userEventType;
+
+	public AbstractWordsModel(List<Word2Translate> words, Type userEventType) {
+		this.userEventType = userEventType;
+		setWords(words);
+	}
+
+	public AbstractWordsModel(List<Word2Translate> words) {
+		
+	}
 
 	@Override
 	public int getRowCount() {
-		return getWords().size();
+		return words == null ? 0 : words.size();
+	}
+
+	public void setWords(List<Word2Translate> words) {
+		this.words = words;
+		fireTableChanged(new TableModelEvent(this));
 	}
 
 	@Override
@@ -24,7 +43,7 @@ public abstract class AbstractWordsModel extends DefaultTableModel {
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		Word2Translate word = getWords().get(rowIndex);
+		Word2Translate word = words.get(rowIndex);
 		switch (columnIndex) {
 		case 0:
 			return word.getWord();
@@ -45,6 +64,14 @@ public abstract class AbstractWordsModel extends DefaultTableModel {
 		return super.getColumnName(column);
 	}
 
-	
+	@SuppressWarnings("unchecked")
+	@Override
+	public void notify(Type type, Object element) {
+		if (userEventType == type) {
+			ArrayList<Word2Translate> words = new ArrayList<>((Collection<Word2Translate>)element);
+			Collections.sort(words);
+			setWords(words == null ? Collections.emptyList() : words);
+		}
+	}
 
 }
