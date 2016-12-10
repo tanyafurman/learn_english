@@ -6,7 +6,6 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-	InternalizerTest.class,
 	VocabularyTest.class,
 	Test0Test.class,
 	Test1Test.class,
