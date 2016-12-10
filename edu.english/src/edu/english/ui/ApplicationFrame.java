@@ -1,15 +1,22 @@
 package edu.english.ui;
 
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.ScrollPane;
 
 import javax.swing.Action;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 
 import edu.english.Application;
+import edu.english.model.StatusModel;
 import edu.english.ui.actions.CreateUserAction;
 import edu.english.ui.actions.LoginAction;
 import edu.english.ui.actions.UpdateUserSettings;
@@ -36,9 +43,7 @@ public class ApplicationFrame extends JFrame {
 	public void setApplication(Application app) {
 		this.application = app;
 		JTabbedPane tabbed = new JTabbedPane(3);
-		tabbed.addTab("Words", new UserVocabularyPane(app));
-		tabbed.addTab("Test", new TestPanel(this));
-		tabbed.addTab("Status", new StatusPanel(application));
+		createContent(app, tabbed);
 		this.setContentPane(tabbed);
 
 		if (userMenu == null) {
@@ -74,6 +79,27 @@ public class ApplicationFrame extends JFrame {
 		JMenu userMenu = new JMenu("Test");
 		addNewItem(userMenu, new UpdateUserSettings(this));
 		return userMenu;
+	}
+
+	private void createContent(Application app, JTabbedPane tabbed) {
+		tabbed.addTab("Words", new UserVocabularyPane(app));
+		tabbed.addTab("Test", new TestPanel(this));
+		{ // create Status panel
+			JPanel statusPanel = new JPanel();
+			BoxLayout layout = new BoxLayout(statusPanel, BoxLayout.Y_AXIS);
+			statusPanel.setLayout(layout);
+			{ // create label
+				JLabel tableName = new JLabel("Status");
+				tableName.setAlignmentX(Component.CENTER_ALIGNMENT);
+				statusPanel.add(tableName);
+			}
+			{// create table
+				ScrollPane scrollable = new ScrollPane();
+				statusPanel.add(scrollable);
+				scrollable.add(new JTable(app.getAdapter(StatusModel.class)));
+			}
+			tabbed.addTab("Status", statusPanel);
+		}
 	}
 
 	private static void addNewItem(JMenu menu, Action action) {
