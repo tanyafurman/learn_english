@@ -36,9 +36,7 @@ public class Test2Test extends TestTest {
 
 	public static void checkAnswers(Vocabulary v) {
 		Application a = new Application(createTestUser(v), v);
-		a.getNextTest();
-		a.getNextTest();
-		Test t = a.getNextTest();
+		Test t = a.getNextTest(5,1);
 
 		String answer = t.getAnswers().get(0);
 

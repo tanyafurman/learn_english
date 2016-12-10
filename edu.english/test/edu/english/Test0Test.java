@@ -23,7 +23,7 @@ public class Test0Test extends TestCase {
 		v.load(words);
 
 		Application a = new Application(createTestUser(v), v);
-		Test t = a.getNextTest();
+		Test t = a.getNextTest(5, 5);
 
 		//check result
 		List<Word2Translate> expectedResult = new ArrayList<>(4);

@@ -9,31 +9,46 @@ import java.util.stream.Collectors;
 
 import edu.english.data.Status;
 import edu.english.data.Status.StatusType;
+import edu.english.data.User;
 import edu.english.data.Word2Translate;
 
-public abstract class Test {
+public class Test {
 
-	public static int TEST_SIZE = 5;
+	private List<Word2Translate> words = null;
+
+	private List<Word2Translate> answers = null;
+
+	public Test(int wordsSize, int answersSize, User user) {
+		if (wordsSize > answersSize) {
+			words = collectTestWords(user.getUnknownWords(), wordsSize);
+			answers = words.size() == 0
+					? Collections.emptyList()
+					: shuffle(words).subList(0, Math.min(words.size(), answersSize));
+		} else {
+			answers = collectTestWords(user.getUnknownWords(), answersSize);
+			words = answers.size() == 0
+					? Collections.emptyList()
+					: shuffle(answers).subList(0, Math.min(answers.size(), wordsSize));
+		}
+	}
 
 	public List<String> getWords(){
-		return getTestWords().size() == 0//�������
+		return words.size() == 0//�������
 				? Collections.emptyList()//true
-				: shuffle(getTestWords()).stream().map(w->w.getWord()).collect(Collectors.toList());//else 
+				: shuffle(words).stream().map(w->w.getWord()).collect(Collectors.toList());//else 
 				//������ ������ ����� ����� �������� � ����� ����� ������ map � �������� ������ � ���������
-	};
+	}
 
 	public List<String> getAnswers() {
-		return getTestAnswers().size() == 0 
+		return answers.size() == 0 
 				? Collections.emptyList()
-				: shuffle(getTestAnswers()).stream().map(w->w.getTranslate()).collect(Collectors.toList());
+				: shuffle(answers).stream().map(w->w.getTranslate()).collect(Collectors.toList());
 				//������ ������ �������� ����� �������� � ����� ����� ������ map � �������� ������ � ���������
 	}
 
-	protected abstract List<Word2Translate> getTestAnswers();
-
-	protected abstract List<Word2Translate> getTestWords();
-
-	protected abstract List<Word2Translate> getCorrectAnswer();
+	protected List<Word2Translate> getCorrectAnswer() {
+		return words.size() > answers.size() ? answers : words;
+	}
 
 	public List<Status> checkAnswers(List<Word2Translate> answers) {
 		List<Status> result = new ArrayList<>();
@@ -47,7 +62,7 @@ public abstract class Test {
 			result.add(status);
 		}
 		return result;
-	};
+	}
 
 	protected static <T> List<T> shuffle(List<T> baseList) { // ������������ ���������
 		long seed = System.nanoTime();

@@ -1,8 +1,6 @@
 package edu.english;
 
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
@@ -16,9 +14,6 @@ import edu.english.data.Word2Translate;
 import edu.english.model.AbstractWordsModel;
 import edu.english.model.StatusModel;
 import edu.english.tests.Test;
-import edu.english.tests.Test0;
-import edu.english.tests.Test1;
-import edu.english.tests.Test2;
 
 public class Application {
 
@@ -35,8 +30,6 @@ public class Application {
 	private User user;
 
 	private UserWordService userWordService;
-
-	private Iterator<Test> testIterator = Collections.<Test>emptyList().iterator();
 
 	private Test currentTest;
 
@@ -80,13 +73,8 @@ public class Application {
 		return 3;
 	}
 
-	public Test getNextTest() {
-		if (!testIterator.hasNext()) {
-			testIterator = Arrays.asList(new Test0(user),
-				new Test1(user),
-				new Test2(user)).iterator();
-		}
-		return currentTest = testIterator.next();
+	public Test getNextTest(int words, int answers) {
+		return currentTest = new Test(words, answers, user);
 	}
 
 	public void dispose() {

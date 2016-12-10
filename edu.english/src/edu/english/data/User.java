@@ -30,7 +30,7 @@ public class User implements Serializable {
 
 	private HashMap<Word2Translate, Integer> wordToRate = new HashMap<>();
 
-	private List<UserDataListener> listeners = new ArrayList<>();
+	private transient List<UserDataListener> listeners;
 
 	private transient List<Status> statuses;
 
@@ -154,6 +154,9 @@ public class User implements Serializable {
 	}
 
 	public void addListener(UserDataListener listener) {
+		if (listeners == null) {
+			listeners = new ArrayList<>();
+		}
 		listeners.add(listener);
 		// init notification
 		notify(Type.KNOWN_WORDS_CHANGED);

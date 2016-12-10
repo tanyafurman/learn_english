@@ -78,8 +78,25 @@ public class TestPanel extends JPanel {
 		} else {
 			currentTestNumber = 0;
 		}
+		int words = 0;
+		int answers = 0;
 
-		return new TestUI(app.getNextTest());
+		switch (currentTestNumber) {
+		case 0:
+			words = 5;
+			answers = 5;
+			break;
+		case 1:
+			words = 1;
+			answers = 5;
+			break;
+		case 2:
+			words = 5;
+			answers = 1;
+			break;
+		}
+
+		return new TestUI(app.getNextTest(words, answers));
 	}
 
 	protected void dispose() {

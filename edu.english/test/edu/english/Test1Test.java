@@ -36,8 +36,7 @@ public class Test1Test extends TestTest {
 
 	public static void checkAnswers(Vocabulary v) {
 		Application a = new Application(createTestUser(v), v);
-		a.getNextTest();
-		Test t = a.getNextTest();
+		Test t = a.getNextTest(1, 5);
 
 		String testWord = t.getWords().get(0);
 
