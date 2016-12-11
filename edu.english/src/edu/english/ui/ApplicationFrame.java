@@ -5,26 +5,34 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
+import java.text.NumberFormat;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.BoxLayout;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JPopupMenu;
+import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.NumberFormatter;
 
 import edu.english.Application;
+import edu.english.UserManager;
+import edu.english.data.User;
+import edu.english.data.Vocabulary;
 import edu.english.data.Word2Translate;
-import edu.english.ui.actions.CreateUserAction;
-import edu.english.ui.actions.LoginAction;
-import edu.english.ui.actions.UpdateUserSettings;
 
 public class ApplicationFrame extends JFrame {
 
@@ -92,7 +100,7 @@ public class ApplicationFrame extends JFrame {
 			userWordsPanel.setLayout(new GridLayout(0, 3, 5, 5));
 
 			userWordsPanel.add(createKnownWordsPanel(app.getAdapter(Application.KNOWN_WORDS_MODEL_ID),"Known words"));
-			userWordsPanel.add(new AbstractWordsPanel(app.getAdapter(Application.UNKNOWN_WORDS_MODEL_ID), "Unknown words"));
+			userWordsPanel.add(new AbstractWordsPanel(new JTable(app.getAdapter(Application.UNKNOWN_WORDS_MODEL_ID)), "Unknown words"));
 			userWordsPanel.add(createKnownWordsPanel(app.getAdapter(Application.VOCABULARY_WORDS_MODEL_ID), "Vocabulary"));
 			tabbed.addTab("Words", userWordsPanel);
 		}
@@ -118,8 +126,8 @@ public class ApplicationFrame extends JFrame {
 	}
 
 	private AbstractWordsPanel createKnownWordsPanel(DefaultTableModel model, String name) {
-		AbstractWordsPanel panel = new AbstractWordsPanel(model, name);
-		JTable table = panel.getTable();
+		JTable table = new JTable(model);
+		AbstractWordsPanel panel = new AbstractWordsPanel(table, name);
 		JPopupMenu popup = new JPopupMenu();
 		table.add(popup);
 		addSetAsUnknownAction(table, popup, getApplication());
@@ -151,11 +159,12 @@ public class ApplicationFrame extends JFrame {
 		item.setAction(action);
 	}
 	
+	//////////////////////////////////////////////////////////////
+	// UI
+	//////////////////////////////////////////////////////////////
 	private static class AbstractWordsPanel extends JPanel {
 
-		private JTable table;
-
-		public AbstractWordsPanel(DefaultTableModel model, String name) {
+		public AbstractWordsPanel(JTable table, String name) {
 			BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
 			setLayout(layout);
 
@@ -165,12 +174,164 @@ public class ApplicationFrame extends JFrame {
 
 			ScrollPane scrollable = new ScrollPane();
 			add(scrollable);
-			table = new JTable(model);
 			scrollable.add(table);
 		}
+	}
+	
+	//////////////////////////////////////////////////////////////
+	// ACTIONS
+	//////////////////////////////////////////////////////////////
+	private static class CreateUserAction extends AbstractAction {
 
-		public JTable getTable() {
-			return table;
+		private static final long serialVersionUID = 1L;
+
+		public CreateUserAction() {
+			super("Create User");
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String name = "";
+			String surname = "";
+			String login = "";
+			String pass = "";
+			
+			JTextField nameField = new JTextField();
+			JTextField surnameField = new JTextField();
+			JTextField loginField = new JTextField();
+			JTextField passField = new JTextField();
+
+			JComponent[] components = new JComponent[]{
+					new JLabel("Name"), nameField,
+					new JLabel("Surname"), surnameField,
+					new JLabel("Login"), loginField,
+					new JLabel("Password"), passField,
+			};
+
+			boolean userCreated = false;
+			while(!userCreated) {
+				int result = JOptionPane.showConfirmDialog(null, components, "Create a New User", JOptionPane.PLAIN_MESSAGE);
+				if (result != JOptionPane.OK_OPTION) {
+					return;
+				}
+				name = nameField.getText().trim();
+				surname = surnameField.getText().trim();
+				login = loginField.getText().trim();
+				pass = passField.getText().trim();
+
+				if (login.length() == 0) {
+					JOptionPane.showConfirmDialog(null, new JComponent[]{},"\"Login\" shouldn't be empty", JOptionPane.PLAIN_MESSAGE);
+					continue;
+				}
+
+				userCreated = UserManager.getInstance().createUser(name, surname, login, pass);
+				
+				if (!userCreated) {
+					JOptionPane.showConfirmDialog(null, new JComponent[]{},"User already exist", JOptionPane.PLAIN_MESSAGE);
+					continue;
+				}
+			}
+		}
+	}
+	
+	private static class LoginAction extends AbstractAction {
+
+		private static final long serialVersionUID = 1L;
+
+		private final ApplicationFrame ui;
+
+		public LoginAction(ApplicationFrame ui) {
+			super("Login");
+			this.ui = ui;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String login = "";
+			String pass = "";
+			
+			JTextField loginField = new JTextField();
+			JTextField passField = new JPasswordField();
+
+			JComponent[] components = new JComponent[]{
+					new JLabel("Login"), loginField,
+					new JLabel("Password"), passField,
+			};
+
+			User u = null;
+			while(u == null) {
+				int result = JOptionPane.showConfirmDialog(null, components, "Create a New User", JOptionPane.PLAIN_MESSAGE);
+				if (result != JOptionPane.OK_OPTION) {
+					return;
+				}
+				login = loginField.getText().trim();
+				pass = passField.getText();
+
+				if (login.length() == 0) {
+					JOptionPane.showConfirmDialog(null, new JComponent[]{},"\"Login\" shouldn't be empty", JOptionPane.PLAIN_MESSAGE);
+					continue;
+				}
+
+				u = UserManager.getInstance().login(login, pass);
+
+				if (u == null) {
+					JOptionPane.showConfirmDialog(null, new JComponent[]{},"Login or pass is not valid", JOptionPane.PLAIN_MESSAGE);
+					continue;
+				} else {
+					Vocabulary v = new Vocabulary();
+					v.load();
+					Application previousApp = ui.getApplication();
+					if (previousApp != null) {
+						previousApp.dispose();
+					}
+					ui.setApplication(new Application(u, v));
+				}
+			}
+		}
+	}
+	
+	private static class UpdateUserSettings extends AbstractAction {
+
+		private static final long serialVersionUID = 1L;
+
+		private ApplicationFrame app;
+
+		public UpdateUserSettings(ApplicationFrame app) {
+			super("Settings");
+			this.app = app;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (app.getApplication() == null) {
+				return;
+			}
+			JLabel repeatCountLabel = new JLabel("Repeat Count:");
+			JLabel wordsAmountLabel = new JLabel("Unknown words size:");
+			
+
+			NumberFormat numberFormat = NumberFormat.getInstance();
+			NumberFormatter formatter = new NumberFormatter(numberFormat);
+			formatter.setValueClass(Integer.class);
+			formatter.setMinimum(1);
+			formatter.setMaximum(Integer.MAX_VALUE);
+
+			JSpinner repeatCountText = new JSpinner(createModel(app.getApplication().getRepeatCount()));
+			JSpinner wordsAmountText = new JSpinner (createModel(app.getApplication().getUnknownWordsSize()));
+
+			int result = JOptionPane.showConfirmDialog(null, new JComponent[]{repeatCountLabel, repeatCountText, wordsAmountLabel, wordsAmountText}, "Change user settings", JOptionPane.OK_CANCEL_OPTION);
+			if (result == JOptionPane.OK_OPTION) {
+				app.getApplication().setRepeatCount(getSpinnerValue(repeatCountText));
+				app.getApplication().setUnknownWordsAmount(getSpinnerValue(wordsAmountText));
+			}
+		}
+
+		private int getSpinnerValue(JSpinner spinner) {
+			return Integer.parseInt(((JSpinner.NumberEditor)spinner.getEditor()).getTextField().getText());
+		}
+		
+		private SpinnerNumberModel createModel(int initValue) {
+			return new SpinnerNumberModel(initValue, 1, Integer.MAX_VALUE, 1);
 		}
 	}
 }
