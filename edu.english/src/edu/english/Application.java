@@ -135,10 +135,13 @@ public class Application {
 			reader = new InputStreamReader(url.openStream());
 			BufferedReader br = new BufferedReader(reader);
 			String line = null;
+			int i = -1;
 			while ((line = br.readLine()) != null) {
+				i++;
 				String[] splitted = line.trim().split("=");
 				if (splitted.length != 2) {
-					System.out.println("Wrong line: " + line);
+					System.out.println("Wrong line: " + line + ", Line number:" + i);
+					continue;
 				}
 				String word = splitted[0];
 				String translation = splitted[1];
