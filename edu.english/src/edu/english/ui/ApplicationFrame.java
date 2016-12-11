@@ -31,7 +31,6 @@ import javax.swing.text.NumberFormatter;
 import edu.english.Application;
 import edu.english.UserManager;
 import edu.english.data.User;
-import edu.english.data.Vocabulary;
 import edu.english.data.Word2Translate;
 
 public class ApplicationFrame extends JFrame {
@@ -278,13 +277,11 @@ public class ApplicationFrame extends JFrame {
 					JOptionPane.showConfirmDialog(null, new JComponent[]{},"Login or pass is not valid", JOptionPane.PLAIN_MESSAGE);
 					continue;
 				} else {
-					Vocabulary v = new Vocabulary();
-					v.load();
 					Application previousApp = ui.getApplication();
 					if (previousApp != null) {
 						previousApp.dispose();
 					}
-					ui.setApplication(new Application(u, v));
+					ui.setApplication(new Application(u));
 				}
 			}
 		}

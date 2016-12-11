@@ -6,7 +6,6 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-	VocabularyTest.class,
 	Test0Test.class,
 	Test1Test.class,
 	Test2Test.class

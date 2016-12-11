@@ -5,36 +5,32 @@ import java.util.List;
 
 import edu.english.data.Status;
 import edu.english.data.Status.StatusType;
-import edu.english.data.Vocabulary;
+import edu.english.data.User;
 import edu.english.data.Word2Translate;
 import edu.english.tests.Test;
+import junit.framework.TestCase;
 
-public class Test1Test extends TestTest {
+public class Test1Test extends TestCase {
 
 	public void testCollectAnswers() {
-		Vocabulary v = new Vocabulary();
 		List<Word2Translate> words = new ArrayList<>();
 		words.add(new Word2Translate("A", "AA"));
 		words.add(new Word2Translate("B", "BB"));
 		words.add(new Word2Translate("C", "ACC"));
-		v.load(words);
 
 		//random
-		checkAnswers(v);
-		checkAnswers(v);
-		checkAnswers(v);
-		checkAnswers(v);
-		checkAnswers(v);
+		checkAnswers(words);
+		checkAnswers(words);
+		checkAnswers(words);
+		checkAnswers(words);
+		checkAnswers(words);
 
-		v = new Vocabulary();
 		words = new ArrayList<>();
 		words.add(new Word2Translate("A", "AA"));
-		v.load(words);
-
-		checkAnswers(v);
+		checkAnswers(words);
 	}
 
-	public static void checkAnswers(Vocabulary v) {
+	public static void checkAnswers(List<Word2Translate> v) {
 		Application a = new Application(createTestUser(v), v);
 		Test t = a.getNextTest(1, 5);
 
@@ -44,12 +40,18 @@ public class Test1Test extends TestTest {
 		@SuppressWarnings("serial")
 		List<Word2Translate> expectedResult = new ArrayList<Word2Translate>() {
 			{
-				add(new Word2Translate(testWord, v.getWords().stream().filter(w->w.getWord().equals(testWord)).findFirst().get().getTranslate()));
+				add(new Word2Translate(testWord, v.stream().filter(w->w.getWord().equals(testWord)).findFirst().get().getTranslate()));
 			}
 		};
 
 		for (Status s : a.processTestResults(expectedResult)) {
 			assertEquals(StatusType.OK, s.getType());
 		}
+	}
+	
+	protected static User createTestUser(List<Word2Translate> words) {
+		User user = new User("", "", "login", "");
+		words.forEach(w->user.addWord(w, 0));
+		return user;
 	}
 }

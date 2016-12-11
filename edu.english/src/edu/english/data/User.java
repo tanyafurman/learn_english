@@ -181,8 +181,10 @@ public class User implements Serializable {
 			element = getStatuses();
 			break;
 		}
-		for (UserDataListener l: listeners) {
-			l.notify(type, element);
+		if (listeners != null) {
+			for (UserDataListener l : listeners) {
+				l.notify(type, element);
+			}
 		}
 	}
 }

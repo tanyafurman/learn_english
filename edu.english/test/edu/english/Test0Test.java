@@ -6,7 +6,6 @@ import java.util.List;
 import edu.english.data.Status;
 import edu.english.data.Status.StatusType;
 import edu.english.data.User;
-import edu.english.data.Vocabulary;
 import edu.english.data.Word2Translate;
 import edu.english.tests.Test;
 import junit.framework.TestCase;
@@ -14,15 +13,13 @@ import junit.framework.TestCase;
 public class Test0Test extends TestCase {
 
 	public void testCorrect() {
-		Vocabulary v = new Vocabulary();
 		List<Word2Translate> words = new ArrayList<>();
 		words.add(new Word2Translate("A", "AA"));
 		words.add(new Word2Translate("B", "BB"));
 		words.add(new Word2Translate("C", "ACC"));
 		words.add(new Word2Translate("A", "AB"));
-		v.load(words);
 
-		Application a = new Application(createTestUser(v), v);
+		Application a = new Application(createTestUser(words), words);
 		Test t = a.getNextTest(5, 5);
 
 		//check result
@@ -48,11 +45,9 @@ public class Test0Test extends TestCase {
 		assertTrue(answers.contains("AB"));
 	}
 
-	private User createTestUser(Vocabulary v) {
+	protected static User createTestUser(List<Word2Translate> words) {
 		User user = new User("", "", "login", "");
-		for (Word2Translate word: v.getWords()) {
-			user.addWord(word, 0);
-		}
+		words.forEach(w->user.addWord(w, 0));
 		return user;
 	}
 }

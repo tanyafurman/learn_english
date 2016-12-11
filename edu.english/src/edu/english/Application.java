@@ -1,5 +1,10 @@
 package edu.english;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,7 +14,6 @@ import edu.english.data.Status;
 import edu.english.data.User;
 import edu.english.data.UserDataListener;
 import edu.english.data.UserDataListener.Type;
-import edu.english.data.Vocabulary;
 import edu.english.data.Word2Translate;
 import edu.english.model.AbstractWordsModel;
 import edu.english.model.StatusModel;
@@ -25,7 +29,7 @@ public class Application {
 
 	public final static String STATUS_MODEL_ID = "STATUS_MODEL_ID";
 
-	private Vocabulary vocabulary;
+	private List<Word2Translate> vocabulary ;
 
 	private User user;
 
@@ -33,10 +37,14 @@ public class Application {
 
 	private Test currentTest;
 
-	public Application(User u, Vocabulary v) {
+	public Application(User u) {
+		this(u, load());
+	}
+
+	public Application(User u, List<Word2Translate> words) {
 		this.user = u;
-		this.vocabulary = v;
-		this.userWordService = new UserWordService(u, v);
+		vocabulary = words;
+		this.userWordService = new UserWordService(u, vocabulary);
 		this.user.addListener(userWordService);
 		new Thread(userWordService).start();
 	}
@@ -95,7 +103,7 @@ public class Application {
 			result = new AbstractWordsModel(Collections.emptyList(), Type.UNKNOWN_WORDS_CHANGED);
 			break;
 		case VOCABULARY_WORDS_MODEL_ID: 
-			result = new AbstractWordsModel(vocabulary.getWords(), null);
+			result = new AbstractWordsModel(vocabulary, null);
 			break;
 		case STATUS_MODEL_ID:
 			result = new StatusModel();
@@ -116,21 +124,49 @@ public class Application {
 		}
 	}
 
+	/**
+	 * load from default file
+	 */
+	public static List<Word2Translate> load() {
+		List<Word2Translate> words = new ArrayList<>();
+		URL url = Application.class.getResource("vocabulary.txt");
+		InputStreamReader reader;
+		try {
+			reader = new InputStreamReader(url.openStream());
+			BufferedReader br = new BufferedReader(reader);
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				String[] splitted = line.trim().split("=");
+				if (splitted.length != 2) {
+					System.out.println("Wrong line: " + line);
+				}
+				String word = splitted[0];
+				String translation = splitted[1];
+				words.add(new Word2Translate(word, translation));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Check the vocabulary file.");
+		}
+		Collections.sort(words, (o1, o2)->o1.getWord().compareTo(o2.getWord()));
+		return words;
+	}
+
 	private static class UserWordService implements UserDataListener, Runnable {
 
 		private User user;
 
-		private Vocabulary v;
+		private List<Word2Translate> vocabulary;
 
 		private boolean lock = false;
 
-		public UserWordService(User user, Vocabulary v) {
+		public UserWordService(User user, List<Word2Translate> vocabulary) {
 			this.user = user;
-			this.v = v;
+			this.vocabulary = vocabulary;
 		}
 
 		private boolean addNewWord() {
-			for (Word2Translate word : v.getWords()) {
+			for (Word2Translate word : vocabulary) {
 				if (!user.containsUnknowns(word) && !user.containsKnowns(word)) {
 					user.addWord(word, 0);
 					return true;
@@ -152,8 +188,10 @@ public class Application {
 			try {
 				lock = true;
 				int wordsAmount = user.getWordsAmount();
-				while ((wordsAmount > user.getUnknownWords().size()) && addNewWord())
-				;
+				while ((wordsAmount > user.getUnknownWords().size()))
+					if (!addNewWord()) {
+						break;
+					}
 			} finally {
 				lock = false;
 			}
