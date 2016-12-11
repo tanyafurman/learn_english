@@ -1,4 +1,4 @@
-package edu.english.resources;
+package edu.english.ui;
 
 import javax.swing.ImageIcon;
 
