@@ -155,6 +155,7 @@ public class Application {
 		return words;
 	}
 
+	// этот класс наполняем словарь юзера, если слов меньше чем он хочет учить
 	private static class UserWordService implements UserDataListener, Runnable {
 
 		private User user;

@@ -33,17 +33,17 @@ public class Test {
 	}
 
 	public List<String> getWords(){
-		return words.size() == 0//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+		return words.size() == 0//условие
 				? Collections.emptyList()//true
 				: shuffle(words).stream().map(w->w.getWord()).collect(Collectors.toList());//else 
-				//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ map пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+				//сперва мешаем слова потом обращаем в поток после строим map и собираем список в коллекцию
 	}
 
 	public List<String> getAnswers() {
 		return answers.size() == 0 
 				? Collections.emptyList()
 				: shuffle(answers).stream().map(w->w.getTranslate()).collect(Collectors.toList());
-				//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ map пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+				//сперва мешаем переводы потом обращаем в поток после строим map и собираем список в коллекцию
 	}
 
 	protected List<Word2Translate> getCorrectAnswer() {
@@ -64,14 +64,14 @@ public class Test {
 		return result;
 	}
 
-	protected static <T> List<T> shuffle(List<T> baseList) { // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	protected static <T> List<T> shuffle(List<T> baseList) { // перемешивает коллекцию
 		long seed = System.nanoTime();
 		ArrayList<T> result = new ArrayList<>(baseList);
 		Collections.shuffle(result, new Random(seed));
 		return result;
 	}
 
-	protected static List<Word2Translate> collectTestWords(Collection<Word2Translate> unknownWords, int length) {// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ length
+	protected static List<Word2Translate> collectTestWords(Collection<Word2Translate> unknownWords, int length) {// выбирает из данной коллекции несколько слов length
 		length = Math.min(length, unknownWords.size());
 		if (length == 0) {
 			return Collections.emptyList();
