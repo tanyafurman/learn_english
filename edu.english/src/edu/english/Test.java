@@ -12,6 +12,29 @@ import edu.english.data.Status.StatusType;
 import edu.english.data.User;
 import edu.english.data.Word2Translate;
 
+
+/**
+ *  ласс дл€ теста. ¬ыбирает из списка незестных слов юзера неизвестные слова и формирует 2 списка:<br>
+ * 1) слова на русском<br>
+ * 2) предлагаемые перевод<br>
+ * <br>
+ * –азмер списков педаетс€ в конструктор:<br>
+ * 1) wordsSize -колчиство слов на русском<br>
+ * 2) answersSize - количество предлагаемых переводов<br>
+ * <br>
+ * ƒл€ каждого слова на русском есть только 1 правильн≥й перевод
+ * <br>
+ * <br>
+ * ѕровер€ет составленные комбинации слов пользовател€ из первых двух списков<br>
+ * ѕример<br>
+ * <code><br>
+ * Test newTest = new Test(1, 2, user);<br>
+ * List<Word2Translate> ourAnswers = new ArrayList<>();<br>
+ * ourAnswers.add(new Word2Translate(newTest.getWords().get(0), newTest.getAswers().get(1)));<br>
+ * List<Status> result = newTest.checkAnswers(ourAnswers);<br>
+ * </code><br>
+ * ≈сли ourAnswers соржал правильную комбинацию, то в result будет статус OK, иначе ERROR<br>
+ */
 public class Test {
 
 	private List<Word2Translate> words = null;
