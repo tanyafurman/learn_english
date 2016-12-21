@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -210,6 +211,7 @@ public class Application {
 			try {
 				lock = true;
 				int wordsAmount = user.getWordsAmount();
+				vocabulary = shuffle(vocabulary);
 				while ((wordsAmount > user.getUnknownWords().size()))
 					if (!addNewWord()) {
 						break;
@@ -217,6 +219,12 @@ public class Application {
 			} finally {
 				lock = false;
 			}
+		}
+		protected <T> List<T> shuffle(List<T> baseList) {
+			long seed = System.nanoTime();
+			ArrayList<T> result = new ArrayList<>(baseList);
+			Collections.shuffle(result, new Random(seed));
+			return result;
 		}
 	}
 }
