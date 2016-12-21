@@ -1,6 +1,7 @@
 package edu.english.ui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -23,7 +24,7 @@ public class TestUI extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final Color[] COLORS = new Color[] { Color.RED, Color.GREEN, Color.BLUE, Color.CYAN, Color.ORANGE };
+	private static final Color[] COLORS = new Color[] { Color.RED, new Color(0, 102, 0), Color.BLUE, new Color(0, 128, 252), new Color(204, 102, 0) };
 
 	private HashMap<JLabel, JLabel> answersMap = new HashMap<>(5);
 
@@ -51,6 +52,7 @@ public class TestUI extends JPanel {
 			label.setForeground(colorProvider.getColor(i));
 			label.addMouseListener(listenerProvider.createListener(label));
 			label.setIcon(IconProvier.DEFAULT_ICON);
+			label.setFont(new Font("Calibri", 0, 20));
 			panel.add(label);
 			labels.add(label);
 		}
