@@ -1,12 +1,30 @@
 package edu.english.data;
 
 import java.io.Serializable;
+/**
+ *Класс Word2Translate хранит такие данные, как:<br>
+ *1) слово на русском языке.<br>
+ *2) перевод на английском языке.<br>
+ *<br>
+ *<br>
+ *Данный класс имеет такой функционал, как:<br>
+ *1) получение перевода к слову.
+ *2) получение слова на русском языке.<br>
+ *3) сравнение слова на русском языке и его перевода по hash-коду.<br>
+ *<br>
+ *<br>
+ 
+	}
+ */
 
 public class Word2Translate implements Comparable<Word2Translate>, Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
 	private final String word;
+	
 	private final String translate;
+	
 	public Word2Translate(String word, String translate) {
 		super();
 		this.word = word;
