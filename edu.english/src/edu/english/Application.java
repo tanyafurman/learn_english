@@ -100,10 +100,6 @@ public class Application {
 		user.addWord(word, 0);
 	}
 
-	public int getTestAmount() {
-		return 3;
-	}
-
 	public Test getNextTest(int words, int answers) {
 		return currentTest = new Test(words, answers, user);
 	}

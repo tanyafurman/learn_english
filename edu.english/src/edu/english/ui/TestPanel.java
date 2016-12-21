@@ -15,6 +15,8 @@ import edu.english.data.Status;
 
 public class TestPanel extends JPanel {
 
+	private static final int TEST_AMOUNT = 3;
+
 	private static final long serialVersionUID = 1L;
 
 	private Application app;
@@ -73,7 +75,7 @@ public class TestPanel extends JPanel {
 	}
 
 	protected TestUI createNextTestPanel() {
-		if (currentTestNumber < app.getTestAmount() - 1) {
+		if (currentTestNumber < TEST_AMOUNT - 1) {
 			currentTestNumber++;
 		} else {
 			currentTestNumber = 0;
