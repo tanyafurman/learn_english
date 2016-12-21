@@ -13,6 +13,18 @@ import javax.swing.JPanel;
 import edu.english.Application;
 import edu.english.data.Status;
 
+/**
+ * Класс TestPanel предназначен для создания фрейма, где пользователь проходит тест.<br>
+ * <br>
+ * Данный класс включает в себе две кнопки, а именно Answer и Next, которые выпольняют свои 
+ * функции при прохождении теста.<br>
+ * <br>
+ * Класс TestPanel выполняет такие функции, как:<br>
+ * 1) обновляет тест, когда пользователь его запускает.<br>
+ * 2) проверяет ответы пользователя.<br>
+ * 3) создание следующего теста, после того, как пользователь нажал на кнопку Next.<br>
+ */
+
 public class TestPanel extends JPanel {
 
 	private static final int TEST_AMOUNT = 3;
