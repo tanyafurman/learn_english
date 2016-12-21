@@ -13,6 +13,14 @@ import java.util.List;
 
 import edu.english.data.User;
 
+/**
+ * Класс закрузки и созранения учетных записей пользователей<br>
+ * <br>
+ * 1) Загружает юзеров из файла. <br>
+ * 2) Если файл не узазан, создает файл в папке по умолчанию аказанной в системе -- System.getProperty("user.dir")<br>
+ * 3) создает нового пользователя<br>
+ * 4) проверяет логин и пароль<br>
+ */
 public class UserManager {
 
 	private static UserManager instance;
