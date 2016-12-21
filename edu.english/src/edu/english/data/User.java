@@ -150,7 +150,8 @@ public class User implements Serializable {
 		if (false == obj instanceof User) {
 			return false;
 		}
-		return this.login.equals(((User) obj).login);
+		User user = (User) obj;
+		return this.login.equals(user.login) && this.pass.equals(user.pass);
 	}
 
 	public void addListener(UserDataListener listener) {
