@@ -11,6 +11,19 @@ import javax.swing.table.DefaultTableModel;
 import edu.english.data.UserDataListener;
 import edu.english.data.Word2Translate;
 
+/**
+ * Класс AbstractWordsModel описывает модель данных для таблиц. Создет таблицу для слов.<br>
+ * <br>
+ *Класс AbstractWordsModel содержит такие данные, как:<br>
+ *1) одно или несколько слов на русском языке и один перевод на английском языке.<br>
+ *<br>
+ *<br>
+ *Данный класс выполняет такие функции, как:<br>
+ *1) устанавливает количество столбцов.<br>
+ *2) устанавливает количество строк.<br>
+ *3) устанавливает заголовки для таблиц.<br>
+ *<br>
+ */
 public class AbstractWordsModel extends DefaultTableModel implements UserDataListener {
 
 	private List<Word2Translate> words;
