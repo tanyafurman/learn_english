@@ -14,26 +14,35 @@ import edu.english.data.Word2Translate;
 
 
 /**
- * Класс для теста. Выбирает из списка незестных слов юзера неизвестные слова и формирует 2 списка:<br>
- * 1) слова на русском<br>
- * 2) предлагаемые перевод<br>
- * <br>
- * Размер списков педается в конструктор:<br>
- * 1) wordsSize -колчиство слов на русском<br>
- * 2) answersSize - количество предлагаемых переводов<br>
- * <br>
- * Для каждого слова на русском есть только 1 правильній перевод
+ * Р”Р°РЅРЅС‹Р№ РєР»Р°СЃСЃ СЃРѕР·РґР°РЅ Рё РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅ РґР»СЏ С‚РµСЃС‚РѕРІ.<br>
  * <br>
  * <br>
- * Проверяет составленные комбинации слов пользователя из первых двух списков<br>
- * Пример<br>
+ * РћРЅ С…СЂР°РЅРёС‚ РІ СЃРµР±Рµ РґРІР° СЃРїРёСЃРєР° СЃРѕ СЃР»РѕРІР°РјРё:<br>
+ * 1) СЃРїРёСЃРѕРє СЃ СЂСѓСЃСЃРєРёРјРё СЃР»РѕРІР°РјРё.<br>
+ * 2) СЃРїРёСЃРѕРє СЃ РїРµСЂРµРІРѕРґР°РјРё, С‚Рѕ РµСЃС‚СЊ Р°РЅРіР»РёР№СЃРєРёРјРё СЃР»РѕРІР°РјРё.<br>
+ * <br>
+ * <br>
+ * РљР»Р°СЃСЃ Test РІС‹РїРѕР»РЅСЏРµС‚ С‚Р°РєРёРµ С„СѓРЅРєС†РёРё, РєР°Рє:<br>
+ * 1) РїСЂРѕРІРµСЂСЏРµС‚ СЂРµР·СѓР»СЊС‚Р°С‚С‹ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РїРѕСЃР»Рµ РїСЂРѕС…РѕР¶РґРµРЅРёСЏ С‚РµСЃС‚Р°.<br>
+ * 2) РјРµС€Р°РµС‚ СЃР»РѕРІР°СЂСЊ РїРµСЂРµРґ С‚РµРј, РєР°Рє РґРѕР±Р°РІРёС‚СЊ СЂР°РЅРґРѕРјРЅРѕРµ РЅРѕРІРѕРµ СЃР»РѕРІРѕ РІ СЃРїРёСЃРѕРє РёР·СѓС‡Р°РµРјС‹С… СЃР»РѕРІ.<br>
+ * <br>
+ * <br>
+ * РљР»Р°СЃСЃ Test РјРѕР¶РµС‚ РјРµРЅСЏС‚СЊ СЂР°Р·РјРµСЂС‹ РґР»СЏ:<br>
+ * 1) wordsSize - РєРѕР»РёС‡РµСЃС‚РІРѕ СЃР»РѕРІ РІ СЃРїРёСЃРєРµ РёР·СѓС‡Р°РµРјС‹С….<br>
+ * 2) answersSize - РєРѕР»РёС‡РµСЃС‚РІРѕ СЃР»РѕРІ РІ СЃРїРёСЃРєРµ РІС‹СѓС‡РµРЅРЅС‹С….<br>
+ * <br>
+ * <br>
+ * Р СѓСЃСЃРєРёРµ СЃР»РѕРІР° РјРѕРіСѓС‚ РёРјРµС‚СЊ С‚РѕР»СЊРєРѕ РѕРґРёРЅ Р°РЅРіР»РёР№СЃРєРёР№ РїРµСЂРµРІРѕРґ.<br>
+ * <br>
+ * <br>
+ * РќР°РїСЂРёРјРµ:<br>
  * <code><br>
  * Test newTest = new Test(1, 2, user);<br>
  * List<Word2Translate> ourAnswers = new ArrayList<>();<br>
  * ourAnswers.add(new Word2Translate(newTest.getWords().get(0), newTest.getAswers().get(1)));<br>
  * List<Status> result = newTest.checkAnswers(ourAnswers);<br>
  * </code><br>
- * Если ourAnswers соржал правильную комбинацию, то в result будет статус OK, иначе ERROR<br>
+ * Р•СЃР»Рё РѕС‚РІРµС‚С‹ РїСЂРё РїСЂРѕС…РѕР¶РґРµРЅРёРё С‚РµСЃС‚Р° СЏРІР»СЏСЋС‚СЃСЏ РїСЂР°РІРёР»СЊРЅС‹РјРё, С‚Рѕ result РІРѕР·РІСЂР°С‰Р°РµС‚СЃСЏ СЃРѕСЃ Р·РЅР°С‡РµРЅРёРј OK, РёРЅР°С‡Рµ ERROR.<br>
  */
 public class Test {
 
@@ -56,17 +65,15 @@ public class Test {
 	}
 
 	public List<String> getWords(){
-		return words.size() == 0//условие
-				? Collections.emptyList()//true
+		return words.size() == 0
+				? Collections.emptyList()
 				: shuffle(words).stream().map(w->w.getWord()).collect(Collectors.toList());//else 
-				//сперва мешаем слова потом обращаем в поток после строим map и собираем список в коллекцию
 	}
 
 	public List<String> getAnswers() {
 		return answers.size() == 0 
 				? Collections.emptyList()
 				: shuffle(answers).stream().map(w->w.getTranslate()).collect(Collectors.toList());
-				//сперва мешаем переводы потом обращаем в поток после строим map и собираем список в коллекцию
 	}
 
 	protected List<Word2Translate> getCorrectAnswer() {
@@ -87,14 +94,14 @@ public class Test {
 		return result;
 	}
 
-	protected static <T> List<T> shuffle(List<T> baseList) { // перемешивает коллекцию
+	protected static <T> List<T> shuffle(List<T> baseList) {
 		long seed = System.nanoTime();
 		ArrayList<T> result = new ArrayList<>(baseList);
 		Collections.shuffle(result, new Random(seed));
 		return result;
 	}
 
-	protected static List<Word2Translate> collectTestWords(Collection<Word2Translate> unknownWords, int length) {// выбирает из данной коллекции несколько слов length
+	protected static List<Word2Translate> collectTestWords(Collection<Word2Translate> unknownWords, int length) {// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ length
 		length = Math.min(length, unknownWords.size());
 		if (length == 0) {
 			return Collections.emptyList();
