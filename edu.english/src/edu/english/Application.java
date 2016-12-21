@@ -19,6 +19,29 @@ import edu.english.model.AbstractWordsModel;
 import edu.english.model.StatusModel;
 import edu.english.tests.Test;
 
+/**
+ * Контроллер приложения<br>
+ * Этот класс:<br>
+ * 1) создает модели для доступа к даным (выученые слова, невыученные слова, статус выполения тестов, словарь)<br>
+ * 2) создает объекты тестов<br>
+ * 3) дополняет словарь юзера новыми словами<br>
+ * 4) обрабатывает результаты теста<br>
+ * 5) изменяет количество изучаемыз слов<br>
+ * 6) изменяет количество повторения для изучения слова<br>
+ * <br>
+ * <br>
+ * Чтобы создать класс надо в конструктор передать Юзера и словарь<br>
+ * <code>
+ * User user = UserManager.getInstance().login(login, pass);<br>
+ * List<Word2Translate> vocabulary = createVocabulary();<br>
+ * Application application = new Application(user, vocabulary);<br>
+ * <br>
+ * Test test = application.getNextTest(5, 5);<br>
+ * ...<br>
+ * List<Word2Translate> answers = getAnswers(...);<br>
+ * List<Status> testResult = application.processTestResults(answers);<br>
+ * </code>
+ */
 public class Application {
 
 	public final static String KNOWN_WORDS_MODEL_ID = "KNOWN_WORDS_MODEL_ID";
