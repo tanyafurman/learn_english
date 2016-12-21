@@ -10,6 +10,21 @@ import java.util.List;
 import edu.english.data.Status.StatusType;
 import edu.english.data.UserDataListener.Type;
 
+/**
+ * Класс зранит информацию о состоянии прогресса юзера.
+ * Хранит
+ * 1) имя, фамилию
+ * 2) логин и пароль без доступа к ним (надо для сериализации и логина в программу)
+ * 3) rate - количество повторений для изучения слова
+ * 4) количество изучаемыз слов
+ * 5) список со словами(изучеными) 
+ * 
+ * 
+ * Имеет список листенеров и рассыылает им информацию о изменениях
+ * 1) в списке изученых
+ * 2) в списке не изученных слов
+ * 3) в списке статусов
+ */
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -52,14 +67,6 @@ public class User implements Serializable {
 
 	public String getSurname() {
 		return surname;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public String getPass() {
-		return pass;
 	}
 
 	public Collection<Word2Translate> getUnknownWords() {
