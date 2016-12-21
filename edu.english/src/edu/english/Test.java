@@ -1,4 +1,4 @@
-package edu.english.tests;
+package edu.english;
 
 import java.util.ArrayList;
 import java.util.Collection;

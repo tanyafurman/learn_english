@@ -17,7 +17,6 @@ import edu.english.data.UserDataListener.Type;
 import edu.english.data.Word2Translate;
 import edu.english.model.AbstractWordsModel;
 import edu.english.model.StatusModel;
-import edu.english.tests.Test;
 
 /**
  * Контроллер приложения<br>

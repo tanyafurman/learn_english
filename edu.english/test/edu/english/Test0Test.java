@@ -7,7 +7,6 @@ import edu.english.data.Status;
 import edu.english.data.Status.StatusType;
 import edu.english.data.User;
 import edu.english.data.Word2Translate;
-import edu.english.tests.Test;
 import junit.framework.TestCase;
 
 public class Test0Test extends TestCase {

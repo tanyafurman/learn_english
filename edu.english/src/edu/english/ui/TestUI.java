@@ -15,10 +15,10 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import edu.english.Test;
 import edu.english.data.Status;
 import edu.english.data.Status.StatusType;
 import edu.english.data.Word2Translate;
-import edu.english.tests.Test;
 
 public class TestUI extends JPanel {
 
