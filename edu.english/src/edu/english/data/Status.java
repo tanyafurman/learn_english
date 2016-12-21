@@ -1,5 +1,12 @@
 package edu.english.data;
 
+/**
+ * Статус ответа юзера. Коасс создается тестом во время проверки ответов юзера
+ * Хранит:
+ * 1) тип статуса
+ * 2) сообщение 
+ * 3) слово с переводом
+ */
 public class Status {
 
 	private final StatusType type;
