@@ -11,7 +11,7 @@ import edu.english.data.Status.StatusType;
 import edu.english.data.UserDataListener.Type;
 
 /**
- *  ласс User хранит информацию о состо€нии прогресса пользовател€.<br>
+ *  ласс User хранит информацию о состо€нии прогресса пользовател€.<br> 
  * <br>
  * <br>
  * ƒанный класс хранит такие данные, как:<br>
@@ -26,6 +26,7 @@ import edu.english.data.UserDataListener.Type;
  * 1) в списке изученных слов.<br>
  * 2) в списке не изученных слов.<br>
  * 3) в списке статусов (статистике результатов).<br>
+ * <br>
  */
 public class User implements Serializable {
 
