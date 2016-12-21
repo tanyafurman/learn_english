@@ -9,6 +9,19 @@ import javax.swing.table.DefaultTableModel;
 import edu.english.data.Status;
 import edu.english.data.UserDataListener;
 
+/**
+ * Класс StatusModel описывает модель данных для таблиц.<br>
+ * <br>
+ *Класс StatusModel содержит такие данные, как:<br>
+ *1) статистику результатов теста, который проходил пользователь.<br>
+ *<br>
+ *<br>
+ *Данный класс выполняет такие функции, как:<br>
+ *1) устанавливает количество столбцов.<br>
+ *2) устанавливает количество строк.<br>
+ *3) предоставляет доступ к данным.<br>
+ *<br>
+ */
 public class StatusModel extends DefaultTableModel implements UserDataListener {
 
 	private static final long serialVersionUID = 1L;
@@ -16,7 +29,7 @@ public class StatusModel extends DefaultTableModel implements UserDataListener {
 	private List<Status> statuses = Collections.emptyList();
 
 	public StatusModel() {
-		super(new String[][]{{"","",""}}, new String[]{"Status","Word","Message"});
+		super(new String[][]{{"","",""}}, new String[]{"Status", "Word", "Message"});
 	}
 
 	@Override
